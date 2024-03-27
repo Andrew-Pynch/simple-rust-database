@@ -1,37 +1,31 @@
-use std::io::{self, Write};
+use std::io::Write;
 
-use crate::lexer::Lexer;
+use crate::parser::Parser;
 
-pub const PROMPT: &str = "pdb >>";
+pub const PROMPT: &str = "pdb >> ";
 
 pub fn start() {
     println!("Welcome to the pynch database program");
 
-    let mut counter = 0;
+    loop {
+        // Print the prompt
+        print!("pdb >> ");
+        std::io::stdout().flush().unwrap();
 
-    // print the prompt then read from the standard input
-    'outer_counter: loop {
-        if counter == 1 {
-            break 'outer_counter;
-        }
-        counter += 1;
-
-        print!("{}", PROMPT);
-        io::stdout().flush().unwrap();
+        // Read user input
         let mut input = String::new();
-        io::stdin().read_line(&mut input).unwrap();
-        // let input = "== 5;";
+        std::io::stdin().read_line(&mut input).unwrap();
 
-        if input.len() == 0 {
-            continue;
-        }
+        // Remove trailing newline character
+        input = input.trim().to_string();
+
+        // Check if the user wants to exit
         if input == "exit" {
+            println!("Exiting the program.");
             break;
         }
 
-        let mut lexer: Lexer = Lexer::new(&input);
-        lexer.generate_all_tokens();
-
-        println!("Lexer Tokens: \n {:?}", lexer.tokens);
+        let mut parser = Parser::new(&input);
+        parser.parse();
     }
 }

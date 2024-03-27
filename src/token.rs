@@ -86,17 +86,9 @@ impl FromStr for TokenType {
             ";" => Ok(TokenType::Semicolon),
             "(" => Ok(TokenType::LParen),
             ")" => Ok(TokenType::RParen),
-            "{" => Ok(TokenType::LBrace),
-            "}" => Ok(TokenType::RBrace),
             // Keywords
-            "func" => Ok(TokenType::Function),
-            "let" => Ok(TokenType::Let),
-            "const" => Ok(TokenType::Const),
             "true" => Ok(TokenType::True),
             "false" => Ok(TokenType::False),
-            "if" => Ok(TokenType::If),
-            "else" => Ok(TokenType::Else),
-            "return" => Ok(TokenType::Return),
             _ => Err(NotAToken),
         }
     }

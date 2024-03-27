@@ -27,6 +27,7 @@ impl Lexer {
 
     pub fn increment_position_set_char(&mut self) {
         if self.position >= self.input.len() - 1 {
+            self.is_at_end = true;
             self.ch = '\0';
         } else {
             self.position += 1;
